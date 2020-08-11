@@ -1,0 +1,52 @@
+{% ckan_extends %}
+
+{% block head_extras %}
+  {{ super() }}
+  {% set description = h.markdown_extract(h.get_translated(res, 'description'), extract_length=200) if res.description else h.markdown_extract(h.get_translated(c.package, 'notes'), extract_length=200) %}
+{% if res.description %} 
+ <meta property="og:title" content="{{ h.dataset_display_name(c.package) }} - {{ res.description }} - {{ g.site_title }}">
+{% else %}
+ <meta property="og:title" content="{{ h.dataset_display_name(c.package) }} - {{ h.resource_display_name(res) }} - {{ g.site_title }}"> 
+{% endif %}
+ <meta property="og:description" content="{{ description|forceescape }}">
+{% endblock %}
+
+{% block subtitle %}
+{% if res.description %}
+{{ h.dataset_display_name(c.package) }} - {{ res.description }}
+{% else %}
+{{ h.dataset_display_name(c.package) }} - {{ h.resource_display_name(res) }}
+{% endif %}
+{% endblock %}
+
+
+{% block breadcrumb_content %}
+  {% if pkg %}
+    {% set dataset = h.dataset_display_name(pkg) %}
+    {% if pkg.organization %}
+      {% set organization = h.get_translated(pkg.organization, 'title') or pkg.organization.name %}
+      {% set group_type = pkg.organization.type %}
+      <li>{% link_for _('Organizations'), named_route='organization.index' %}</li>
+      <li>{% link_for organization|truncate(30), named_route='organization.read', id=pkg.organization.name %}</li>
+    {% else %}
+      <li>{% link_for _('Datasets'), named_route='dataset.search' %}</li>
+    {% endif %}
+    <li{{ self.breadcrumb_content_selected() }}>{% link_for dataset|truncate(30), named_route='dataset.read', id=pkg.id if is_activity_archive else pkg.name %}</li>
+  {% else %}
+    <li>{% link_for _('Datasets'), named_route='dataset.search' %}</li>
+    <li class="active"><a href="">{{ _('Create Dataset') }}</a></li>
+  {% endif %}
+  {% if res.description %}
+   <li class="active"><a href="">{{ res.description|truncate(30) }}</a></li>
+  {% else %}
+   <li class="active"><a href="">{{ h.resource_display_name(res)|truncate(30) }}</a></li>
+  {% endif %}
+{% endblock %}
+
+{% block resource_read_title %}
+ {% if res.description %}
+<h1 class="page-heading">{{res.description}}</h1>
+ {% else %}
+<h1 class="page-heading">{{h.resource_display_name(res) | truncate(50)}}</h1>
+ {% endif %}
+{% endblock %}

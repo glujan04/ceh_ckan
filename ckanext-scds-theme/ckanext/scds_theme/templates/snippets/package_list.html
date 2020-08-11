@@ -1,0 +1,37 @@
+{% ckan_extends %}
+
+{% block package_list %}
+{{ super() }}
+
+<hr style="margin-top:20px; border: 2px solid #004BA7; background-color:#004BA7;">
+      <div class="dataset-content" style="margin-top:20px;">
+
+          <h3 class="dataset-heading">
+             Exportar metadatos RDF-DCAT
+          </h3>
+
+      </div>
+
+
+
+            <ul class="dataset-resources unstyled" style="margin-bottom:20px;">
+
+
+                <li>
+                  <a href="http://segopendata.idomtest.com:30080/catalog.rdf" class="label" data-format="rdf">RDF</a>
+                </li>
+                <li>
+                  <a href="http://segopendata.idomtest.com:30080/catalog.xml" class="label" data-format="xml">XML</a>
+                </li>
+                  <li>
+                  <a href="http://segopendata.idomtest.com:30080/catalog.ttl" class="label" data-format="turtle">Turtle</a>
+                </li>
+            </ul>
+
+
+
+
+  </li>
+
+{% endblock %}
+

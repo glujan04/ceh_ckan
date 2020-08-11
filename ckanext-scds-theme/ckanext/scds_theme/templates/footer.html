@@ -1,0 +1,46 @@
+<footer class="scds_footer">
+      <div class="footer_menu">
+        <div class="container">
+          <div class="row">
+            <div class="col-md-4">
+              <!-- <a href="{{ h.url_for('/') }}"><img class="footer_logo" alt="costa del sol" src="/a2f6392d6a3cb3d9e4cf2c7ac5b7336e.svg"></a> -->
+              <div><strong class="text-uppercase text-small">{{ _('Quick Access') }}</strong></div>
+              <div class="list-group footer_nav">
+               <a href="{{ h.url_for('/') }}" class="list-group-item">{{ _('Description of the initiative') }}</a>
+               <a href="https://opendataelhierro.idomdev.es/noticias" class="list-group-item">{{ _('News, information and updates') }}</a>
+               <a href="https://opendataelhierro.idomdev.es/documentos" class="list-group-item">{{ _(' Documentation and help') }}</a>
+               <a href="https://opendataelhierro.idomdev.es/terminos" class="list-group-item">{{ _('Terms and license') }}</a>
+             </div>
+            </div>
+            <div class="col-md-4">
+             <div class="list-group footer_nav">
+               <a href="https://catalogoelhierro.idomdev.es/dataset" class="list-group-item">{{ _('Datasets') }}</a>
+               <a href="{{ h.url_for('/stats') }}" class="list-group-item">{{ _('Statistics') }}</a>
+               <a href="{{ h.url_for('/sparql') }}" class="list-group-item">SPARQL</a>
+               <a href="https://opendataelhierro.idomdev.es/api" class="list-group-item">API</a>
+             </div>
+            </div>
+            <div class="col-md-4">
+{% block footer_lang %}
+          {% snippet "snippets/language_selector.html" %}
+        {% endblock %}
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="footer_rights">
+        <div class="container">
+          <div class="row">
+            <div class="col-md-8">
+              <p>{{ _('Open Data Portal of the Hierro en Red Initiative') }} © 2020 - {{ _('All rights reserved') }} </p>
+            </div>
+            <div class="col-md-4 links">
+              <p class="pull-right">
+                <a href="https://opendataelhierro.idomdev.es/aviso_legal">{{ _('Legal Warning') }}</a> | <a href="https://opendataelhierro.idomdev.es/accesibilidad">{{ _('Accessibility') }}</a>
+                <img src="/aa.png" alt="aa">
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </footer>

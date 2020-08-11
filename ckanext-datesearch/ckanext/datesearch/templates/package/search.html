@@ -1,0 +1,43 @@
+{% ckan_extends %}
+
+{% block secondary_content %}
+{{ super() }}
+  {% resource 'ckanext-datesearch/moment.js' %}
+  {% resource 'ckanext-datesearch/datepicker.css' %}
+  {% resource 'ckanext-datesearch/daterangepicker.css' %}
+  {% resource 'ckanext-datesearch/bootstrap-datepicker.js' %}
+  {% resource 'ckanext-datesearch/daterangepicker-module.js' %}
+
+  {# This <section> is the date-range picker widget in the sidebar. #}
+  <section  class=" module module-narrow module-shallow">
+    <h2 class="module-heading">
+      <em class="fa fa-calendar"></em>  {{ _('Fecha de modificación') }}
+      <a href="{{ h.remove_url_param(['ext_startdate', 'ext_enddate']) }}" class="action clear_action">{{ _('Clear') }}</a>
+    </h2>
+    <div class="module-content input-prepend input-daterange" data-module="daterange-query" id="datepicker">
+      <div class="form-group">
+      <label for="start" class="">Desde</label>
+      <input type="text" class="input-mini form-control" style="cursor:pointer;" readonly="" name="start" id="start" data-module="daterangepicker-module" />
+      </div>
+      <div class="form-group">
+      <label for="end" class="">Hasta</label>
+      <input type="text" class="input-mini form-control" style="cursor:pointer;" readonly="" name="end" id="end" data-module="daterangepicker-module" />
+      </div>   
+   </div>
+  </section>
+  <section  class=" module module-narrow module-shallow">
+    <h2 class="module-heading">
+      <em class="fa fa-calendar"></em>  {{ _('Frecuencia de actualización') }}
+      <a href="{{ h.remove_url_param(['ext_startdate', 'ext_enddate']) }}" class="action clear_action">{{ _('Clear') }}</a>
+    </h2>
+    <nav>
+      <ul class="list-unstyled nav nav-simple nav-facet">
+      <li class="nav-item"><a href="/dataset?q=frequency:P1Y">Anual</a></li>
+      <li class="nav-item"><a href="/dataset?q=frequency:P1M">Mensual</a></li>
+      <li class="nav-item"><a href="/dataset?q=frequency:P7D">Semanal</a></li>
+      <li class="nav-item"><a href="/dataset?q=frequency:P1D">Diaria</a></li>
+      <li class="nav-item"><a href="/dataset?q=frequency:T1H">Horaria</a></li>
+      </ul>
+   </nav>
+  </section>
+{% endblock %}

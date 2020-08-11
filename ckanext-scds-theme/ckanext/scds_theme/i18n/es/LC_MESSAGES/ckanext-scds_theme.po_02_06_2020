@@ -1,0 +1,180 @@
+# Spanish translations for ckanext-scds_theme.
+# Copyright (C) 2020 ORGANIZATION
+# This file is distributed under the same license as the ckanext-scds_theme
+# project.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2020.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: ckanext-scds_theme 0.0.1\n"
+"Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
+"POT-Creation-Date: 2020-04-07 15:38+0000\n"
+"PO-Revision-Date: 2020-04-07 15:46+0000\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: es\n"
+"Language-Team: es <LL@li.org>\n"
+"Plural-Forms: nplurals=2; plural=(n != 1)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.3.4\n"
+
+#: ckanext/scds_theme/templates/footer.html:7
+msgid "Quick Access"
+msgstr "Acceso rápido"
+
+#: ckanext/scds_theme/templates/footer.html:9
+#: ckanext/scds_theme/templates/header.html:97
+msgid "Description of the initiative"
+msgstr "Descripción de la iniciativa"
+
+#: ckanext/scds_theme/templates/footer.html:10
+msgid "News, information and updates"
+msgstr "Noticias, novedades y actualizaciones"
+
+#: ckanext/scds_theme/templates/footer.html:11
+msgid " Documentation and help"
+msgstr "Documentación y ayuda"
+
+#: ckanext/scds_theme/templates/footer.html:12
+msgid "Terms and license"
+msgstr "Términos y licencias"
+
+#: ckanext/scds_theme/templates/footer.html:17
+#: ckanext/scds_theme/templates/header.html:98
+msgid "Datasets"
+msgstr "Catálogo de datos"
+
+#: ckanext/scds_theme/templates/footer.html:18
+#: ckanext/scds_theme/templates/header.html:101
+msgid "Statistics"
+msgstr "Estadísticas de uso"
+
+#: ckanext/scds_theme/templates/footer.html:35
+msgid "Open Data Portal of the Hierro en Red Initiative"
+msgstr "Portal de Datos Abiertos de la Iniciativa del Hierro en Red"
+
+#: ckanext/scds_theme/templates/footer.html:35
+msgid "All rights reserved"
+msgstr "Todos los derechos reservados"
+
+#: ckanext/scds_theme/templates/footer.html:39
+msgid "Legal Warning"
+msgstr "Aviso Legal"
+
+#: ckanext/scds_theme/templates/footer.html:39
+msgid "Accessibility"
+msgstr "Accesibilidad"
+
+#: ckanext/scds_theme/templates/header.html:10
+msgid "Reports"
+msgstr "Informes"
+
+#: ckanext/scds_theme/templates/header.html:19
+msgid "Sysadmin settings"
+msgstr ""
+
+#: ckanext/scds_theme/templates/header.html:21
+msgid "Admin"
+msgstr ""
+
+#: ckanext/scds_theme/templates/header.html:26
+msgid "View profile"
+msgstr ""
+
+#: ckanext/scds_theme/templates/header.html:33
+#, python-format
+msgid "Dashboard (%(num)d new item)"
+msgid_plural "Dashboard (%(num)d new items)"
+msgstr[0] ""
+msgstr[1] ""
+
+#: ckanext/scds_theme/templates/header.html:37
+msgid "Dashboard"
+msgstr ""
+
+#: ckanext/scds_theme/templates/header.html:43
+msgid "Edit settings"
+msgstr ""
+
+#: ckanext/scds_theme/templates/header.html:45
+msgid "Settings"
+msgstr ""
+
+#: ckanext/scds_theme/templates/header.html:50
+#: ckanext/scds_theme/templates/header.html:52
+msgid "Log out"
+msgstr ""
+
+#: ckanext/scds_theme/templates/header.html:62
+msgid "Log in"
+msgstr ""
+
+#: ckanext/scds_theme/templates/header.html:64
+msgid "Register"
+msgstr ""
+
+#: ckanext/scds_theme/templates/home/index.html:3
+msgid "Welcome"
+msgstr "Bienvenido"
+
+#: ckanext/scds_theme/templates/home/index.html:10
+msgid "WELCOME"
+msgstr "BIENVENIDO"
+
+#: ckanext/scds_theme/templates/home/index.html:12
+msgid ""
+"Open Data and its reuse result in an improvement in the quality of life of "
+"citizens to the extent that they are the starting point for the development "
+"of new services and applications, not for the fact that they are made "
+"available is carried out would not be available Through this space, the El "
+"Hierro en Red Association seeks to make data and information published in an "
+"open, regular and reusable way for everyone, establishing new mechanisms for "
+"permanent and transparent communication with the citizenship. In turn, the "
+"licenses of each of the data sets are published, in order to facilitate their"
+msgstr "Los Datos Abiertos y su reutilización redundan en una mejora de la calidad de vida de los ciudadanos en la medida en la que son el punto de partida para el desarrollo de nuevos servicios y aplicaciones que de no ser por la puesta a disposición que se ellos se realiza no estarían disponibles. La iniciativa El Hierro en Red, persigue que los datos y la información se publiquen de forma abierta, estandarizada y reutilizable para la ciudadanía en general, estableciendo nuevos mecanismos de comunicación permanente y transparente. A su vez, en el presente portal, se encuentran publicadas las licencias de cada uno de los conjuntos de datos, con la finalidad de facilitar su reutilización."
+
+#: ckanext/scds_theme/templates/home/index.html:24
+msgid "Organizations"
+msgstr "Actualizados recientemente"
+
+#: ckanext/scds_theme/templates/home/index.html:25
+msgid "Groups"
+msgstr "Temáticas"
+
+#: ckanext/scds_theme/templates/home/index.html:63
+msgid "Recently Updated"
+msgstr "Recientemente actualizado"
+
+#: ckanext/scds_theme/templates/home/index.html:69
+msgid "Organization"
+msgstr "Área Ádministrativa"
+
+#: ckanext/scds_theme/templates/home/index.html:78
+msgid "Cloud of Tags"
+msgstr "Nube de Etiquetas"
+
+#: ckanext/scds_theme/templates/package/snippets/resource_item.html:24
+msgid "Explore"
+msgstr ""
+
+#: ckanext/scds_theme/templates/package/snippets/resource_item.html:33
+msgid "Preview"
+msgstr ""
+
+#: ckanext/scds_theme/templates/package/snippets/resource_item.html:36
+msgid "More information"
+msgstr ""
+
+#: ckanext/scds_theme/templates/package/snippets/resource_item.html:45
+msgid "Download"
+msgstr ""
+
+#: ckanext/scds_theme/templates/package/snippets/resource_item.html:48
+msgid "Go to resource"
+msgstr ""
+
+#: ckanext/scds_theme/templates/package/snippets/resource_item.html:57
+msgid "Edit"
+msgstr ""
+

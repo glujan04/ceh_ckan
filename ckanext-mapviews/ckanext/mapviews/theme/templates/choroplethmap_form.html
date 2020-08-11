@@ -1,0 +1,13 @@
+{% extends 'navigablemap_form.html' %}
+{% import 'macros/form.html' as form %}
+
+{% block form_required_fields %}
+
+{{ super() }}
+
+{{
+    form.select('resource_value_field', label=_('Value'), options=numeric_fields,
+        selected=resource_view['resource_value_field'], is_required=true)
+}}
+
+{% endblock %}

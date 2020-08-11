@@ -1,0 +1,36 @@
+{% ckan_extends %}
+{% block resource_list %}
+{{ super() }}
+<hr style="margin-top:20px; border: 2px solid #004BA7; background-color:#004BA7;">
+      <div class="dataset-content" style="margin-top:20px;">
+
+          <h3 class="dataset-heading">
+             Exportar metadatos RDF-DCAT
+          </h3>
+
+      </div>
+
+
+            <ul class="dataset-resources unstyled" style="margin-bottom:20px;">
+
+
+                <li>
+                  <a href="/dataset/{{pkg.name}}.rdf" class="label" data-format="rdf">RDF/XML1</a>
+                </li>
+                <li>
+                  <a href="/dataset/{{pkg.name}}.ttl" class="label" data-format="turtle">Turtle</a>
+                </li>
+                  <li>
+                  <a href="/dataset/{{pkg.name}}.n3" class="label" data-format="txt">Notation3</a>
+                </li>
+                                </li>
+                  <li>
+                  <a href="/dataset/{{pkg.name}}.jsonld" class="label" data-format="json">JSON-LD</a>
+                </li>
+            </ul>
+
+
+
+
+{% endblock %}
+

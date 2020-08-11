@@ -1,0 +1,2 @@
+ckanext
+ckanext.ceh_comment

@@ -1,0 +1,12 @@
+README.md
+setup.py
+ckanext/__init__.py
+ckanext/datesearch/__init__.py
+ckanext/datesearch/plugin.py
+ckanext_datesearch.egg-info/PKG-INFO
+ckanext_datesearch.egg-info/SOURCES.txt
+ckanext_datesearch.egg-info/dependency_links.txt
+ckanext_datesearch.egg-info/entry_points.txt
+ckanext_datesearch.egg-info/namespace_packages.txt
+ckanext_datesearch.egg-info/not-zip-safe
+ckanext_datesearch.egg-info/top_level.txt

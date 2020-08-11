@@ -1,0 +1,87 @@
+{% macro comment_form(values={}, empty=False, hidden=True, prefix="", action="add") %}
+<div class="module-content ceh-comments-reply ceh-form-reply {% if hidden %}hidden{% endif %}" id="{{ prefix + values.id }}">
+    <form action="{{ pkg_id }}/comments/{% if values.id %}{{ values.id }}/{% endif %}{{ action }}" method="POST" class="form-horizontal form" id="form_{{ prefix + values.id }}" role="form"> 
+      <div class="form-group form-group_ech">
+        <label for="subject" class="col-sm-2 control-label">{{ _('Nombre') }}</label>
+        <div class="col-sm-10 ech-col">
+          <input type="text" class="form-control form-control_ech" name="subject" id="subject_{{ prefix + values.id }}" maxlength="50" required>
+        </div>
+      </div>
+      <div class="form-group form-group_ech">
+        <label for="email" class="col-sm-2 control-label">{{ _('Correo Electrónico') }}</label>
+        <div class="col-sm-10 ech-col">
+          <input type="text" class="form-control form-control_ech" name="email" id="email_{{ prefix + values.id }}" maxlength="30" required>
+        </div>
+      </div>
+      <div class="form-group form-group_ech">
+        <label for="comment" class="col-sm-2 control-label">{{ _('Comentario') }}</label>
+        <div class="col-sm-10">
+          <span class="form-control_label_ech1">
+            <i class="fa fa-question-circle"></i>
+            <a class="ceh-tips" href="#" data-toggle="modal" data-target="#tipsModal">{{ _('formatos y textos') }}</a>
+          </span>
+          <textarea class="form-control form-control_label_ech1 ceh_comment_reply form-ceh-comment" name="comment" id="comment_{{ prefix + values.id }}" rows="5" maxlength="500" required></textarea>
+          <span class="countdown"></span>
+        </div>
+      </div>
+      <div class="form-group form-group_ech">
+        <div class="col-sm-offset-2 col-sm-10 ech-col">
+          <input type="checkbox" class="form-checkbox-input" name="cehpolicy">
+          <span class="form-checkbox-label form-control_label_ech1" for="cehpolicy">{{ _('He leído y acepto los') }} <a href="#" data-toggle="modal" data-target="#termsModal">{{ _('Términos y Condiciones') }}</a></span>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="col-sm-offset-2 col-sm-10">
+          <button class="btn btn-success btn-circle text-uppercase" type="submit"><span class="fa fa-paper-plane"></span> {{ _('Agregar Comentario') }}</button>
+        </div>
+      </div>
+    </form>
+  </div>
+{% endmacro %}
+{% set approved = {'exist': False} %}
+{% set thread = h.get_comment_thread(pkg_name) %}
+    <div class="comment-wrapper">
+{% macro comment_thread(thread) %}
+    {% for comment in thread.comments %}
+        {% if comment.approved %}
+        {% if approved.update({'exist': True}) %} {% endif %}
+        <div class="comment ceh-post-body {% if comment.parent_id != None %}ceh-post-reply{% endif %}">
+            {% if comment.state != 'deleted' %}
+                <div class="ceh-post-main">
+					<div class="ceh-post-left">{{ comment.email }}</div>
+					<div>{% if comment.parent_id != None %} {{ _('Respuesta') }}: {% endif %}{{ comment.subject }}</div>
+				</div>
+            {% endif %}
+            <div class="ceh-post-head">
+            <div class="submitted">
+                <span>{{ _('Registrado') }}: {{ h.render_datetime(comment.creation_date, "%d/%m/%Y a las %H:%M") }}</span>
+            </div>
+            <div class="content ceh-post-content">
+            {% if comment.state != 'deleted' %}
+			    <div class="ceh-post-content1">
+                {{ comment.content|safe }}
+				</div>
+            {% else %}
+                {{ _('This comment was deleted.') }}
+            {% endif %}
+			{% if comment.state == 'active' and comment.parent_id == None %}
+            <ul class="links list-inline ceh-pointer">
+                <li><a onclick="ShowCommentForm('reply_{{ comment.id }}')">{{ _('Responder') }}</a> </li>
+                {{ comment_form(comment, empty=True, prefix='reply_', action='reply') }}
+            </ul>
+            {% endif %}
+            </div>
+            </div>
+        </div>
+        {% endif %}
+            {% if (comment.comments | length != 0) and comment.approved %}
+                {{ comment_thread(comment) }}
+            {% endif %}
+    {% endfor %}
+{% endmacro %}
+{{ comment_thread(thread) }}
+   {% if thread.comments | length == 0 or approved.exist == False %}
+   {{ _('Aún no existen comentarios.') }}
+{% endif %}
+    </div>
+

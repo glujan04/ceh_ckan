@@ -1,0 +1,87 @@
+{% extends "page.html" %}
+
+{% block subtitle %}{{ _("Welcome") }}{% endblock %}
+
+{% block content %}
+    <div class="container">
+     <div class="homepage-wrapper">
+
+     <div class="welcome-signage jumbotron text-center">
+      <h2>{{ _('WELCOME') }}</h2>
+      <p style="font-size: 16px;">
+{{ _('Open Data and its reuse result in an improvement in the quality of life of citizens to the extent that they are the starting point for the development of new services and applications, not for the fact that they are made available is carried out would not be available Through this space, the El Hierro en Red Association seeks to make data and information published in an open, regular and reusable way for everyone, establishing new mechanisms for permanent and transparent communication with the citizenship. In turn, the licenses of each of the data sets are published, in order to facilitate their reuse.') }}
+      </p>
+     </div>
+
+     <div class="row">
+      <div class="col-xs-12 text-center">
+
+       <ul class="nav nav-pills" style="display: flex; justify-content: center;">
+        <li class="active"><a data-toggle="tab" href="#organizations">{{ _('Organizations') }}</a></li>
+        <li><a data-toggle="tab" href="#groups">{{ _('Groups') }}</a></li>
+       </ul>
+       <br>
+
+       <article class="orgz">
+        <div id="organizations" class="tab-content tab-pane active">
+         <div class="row" style="display:inline-flex; flex-wrap: wrap; list-style: none; justify-content: center;">
+    {% for org in h.scds_theme_list_organizations() %}
+         <div class="col-md-4 col-sm-6">
+             <a href="{{ h.url_for('organization_read', action='read', id=org.name) }}" class="thumbnail" data-toggle="tooltip" data-placement="bottom" title="{{ org.display_name }}">
+                <img src="{{ org.image_display_url }}" alt="{{org.display_name}}" style="border-radius: 5px; margin-top:10px; margin-bottom: 5px;"/>
+                <p style="font-size: 12px; font-weight: bold;">{{org.display_name}}</p>
+            </a>
+        </div>
+    {% endfor %}
+         </div>
+        </div>
+        <div id="groups" class="tab-content tab-pane">
+         <div class="row" style="display:inline-flex; flex-wrap: wrap; list-style: none; justify-content: center;">
+    {% for group in h.scds_theme_list_groups() %}
+         <div class="col-md-2 col-sm-3 col-xs-6">
+             <a href="{{ h.url_for('group_read', action='read', id=group.name) }}" class="thumbnail" data-toggle="tooltip" data-placement="bottom" title="{{ group.display_name  }}">
+                <img src="{{ group.image_display_url }}" alt="{{group.display_name}}" style="width: 60px; margin-top:10px; margin-bottom: 5px;"/>
+                <p style="font-size: 12px; font-weight: bold;">{{group.display_name}}</p>
+            </a>
+        </div>
+    {% endfor %}
+         </div>
+        </div>
+       </article>
+
+      </div>
+     </div>
+     <br>
+    
+    <div class="row">
+    <div class="col-sm-6">
+     <div class="panel panel-primary">
+      <div class="panel-heading"><h3><i class="fa fa-line-chart" aria-hidden="true"></i> {{ _('Recently Updated') }}</h3></div>
+      <div class="panel-body">
+       <div class="list-group">
+       {% for set in h.scds_theme_most_downloaded_datasets() %}
+        <a href="{{ h.url_for('/dataset/{}'.format(set.name)) }}" class="list-group-item" style="border:none">
+         <h4 class="list-group-item-heading">{{set.title}}</h4>
+         <p class="list-group-item-text"><strong>{{ _('Organization') }}:</strong> {{set.organization.title}}</p>
+        </a>
+       {% endfor %}
+       </div>
+      </div>
+     </div>
+    </div>
+    <div class="col-sm-6">
+     <div class="panel panel-primary">
+      <div class="panel-heading"><h3><i class="fa fa-tags" aria-hidden="true"></i> {{ _('Cloud of Tags') }}</h3></div>
+      <div class="panel-body">
+        {% snippet 'ckanext-discovery/snippets/tag_cloud.html', num_tags=50 %} 
+      </div>
+     </div>
+    </div>
+    </div>
+
+    </div>
+
+
+    </div>
+   </div>
+{% endblock %}

@@ -1,0 +1,276 @@
+
+{% resource 'ckanext_comment/jquery.validate.js' %}
+{% resource 'ckanext_comment/ceh.js' %}
+{% resource 'ckanext_comment/ceh.css' %}
+
+{% macro comment_form(values={}, empty=False, hidden=True, prefix="", action="add") %}
+<div class="module-content ceh-comments-reply ceh-form-reply {% if hidden %}hidden{% endif %}" id="{{ prefix + values.id }}">
+    <form action="{{ pkg_id }}/comments/{% if values.id %}{{ values.id }}/{% endif %}{{ action }}" method="POST" class="form-horizontal form" id="form_{{ prefix + values.id }}" role="form"> 
+      <div class="form-group form-group_ech">
+        <label for="subject" class="col-sm-2 control-label">{{ _('Nombre') }}</label>
+        <div class="col-sm-10 ech-col">
+          <input type="text" class="form-control form-control_ech" name="subject" id="subject_{{ prefix + values.id }}" maxlength="50" required>
+        </div>
+      </div>
+      <div class="form-group form-group_ech">
+        <label for="email" class="col-sm-2 control-label">{{ _('Correo Electrónico') }}</label>
+        <div class="col-sm-10 ech-col">
+          <input type="text" class="form-control form-control_ech" name="email" id="email_{{ prefix + values.id }}" maxlength="30" required>
+        </div>
+      </div>
+      <div class="form-group form-group_ech">
+        <label for="comment" class="col-sm-2 control-label">{{ _('Comentario') }}</label>
+        <div class="col-sm-10">
+          <span class="form-control_label_ech1">
+            <i class="fa fa-question-circle"></i>
+            <a class="ceh-tips" href="#" data-toggle="modal" data-target="#tipsModal">{{ _('formatos y textos') }}</a>
+          </span>
+          <textarea class="form-control form-control_label_ech1 ceh_comment_reply form-ceh-comment" name="comment" id="comment_{{ prefix + values.id }}" rows="5" maxlength="500" required></textarea>
+          <span class="countdown"></span>
+        </div>
+      </div>
+      <div class="form-group form-group_ech">
+        <div class="col-sm-offset-2 col-sm-10 ech-col">
+          <input type="checkbox" class="form-checkbox-input" name="cehpolicy">
+          <span class="form-checkbox-label form-control_label_ech1" for="cehpolicy">{{ _('He leído y acepto los') }} <a href="#" data-toggle="modal" data-target="#termsModal">{{ _('Términos y Condiciones') }}</a></span>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="col-sm-offset-2 col-sm-10">
+          <button class="btn btn-success btn-circle text-uppercase" type="submit"><span class="fa fa-paper-plane"></span> {{ _('Agregar Comentario') }}</button>
+        </div>
+      </div>
+    </form>
+  </div>
+{% endmacro %}
+{% set approved = {'exist': False} %}
+{% set thread = h.get_comment_thread(pkg_name) %}
+{% macro comment_thread(thread) %}
+
+    <div class="comment-wrapper">
+    {% for comment in thread.comments %}
+         {# {{ comment.id }} /
+         {{ comment.thread_id }} / {{ comment.parent_id }} / {{ comment.child_count }} #}
+        {% if comment.approved %}
+        {% if approved.update({'exist': True}) %} {% endif %}
+        <div class="comment ceh-post-body {% if comment.parent_id != None %}ceh-post-reply{% endif %}">
+            {% if comment.state != 'deleted' %}
+                <div class="ceh-post-main">
+					<div class="ceh-post-left">{{ comment.email }}</div>
+					<div>{% if comment.parent_id != None %} {{ _('Respuesta') }}: {% endif %}{{ comment.subject }}</div>
+				</div>
+            {# {% else %} #}
+            {#    <h3>{{ _('This comment was deleted.') }}</h3> #}
+            {% endif %}
+            <div class="ceh-post-head">
+            <div class="submitted">
+                <span>{{ _('Registrado') }}: {{ h.render_datetime(comment.creation_date, "%d/%m/%Y a las %H:%M") }} {# {{  h.linked_user(comment.user_id, 0, 10) }} #}</span>
+                {# {% if comment.modified_date %}
+                    <br/><span>{{ h.render_datetime(comment.modified_date, "%d.%m.%Y %H:%M") }} {{ _('Modified') }} </span>
+                {% endif %} #}
+            </div>
+            <div class="content ceh-post-content">
+            {% if comment.state != 'deleted' %}
+			    <div class="ceh-post-content1">
+                {{ comment.content|safe }}
+				</div>
+            {% else %}
+                {{ _('This comment was deleted.') }}
+            {% endif %}
+            {# {% if comment.state == 'active' and (comment.child_count == 0 and comment.parent_id == None) %} #}
+			{% if comment.state == 'active' and comment.parent_id == None %}
+            <ul class="links list-inline ceh-pointer">
+              {#  {% if h.check_access('package_update', {'id': pkg_id }) %}
+                    <li><a href="/dataset/{{ pkg_id }}/comments/{{ comment.id }}/delete">{{ _('Delete') }}</a> </li>
+                {% endif %}
+
+                {% if userobj and comment.user_id == userobj.id %}
+                    <li><a onclick="ShowCommentForm('edit_{{ comment.id }}')">{{ _('Edit') }}</a></li>
+                    {{ comment_form(comment, prefix='edit_', action='edit') }}
+                {% endif %} #}
+                {# {% if  userobj %} #}
+                    <li><a onclick="ShowCommentForm('reply_{{ comment.id }}')">{{ _('Responder') }}</a> </li>
+                    {{ comment_form(comment, empty=True, prefix='reply_', action='reply') }}
+                {# {% endif %} #}
+
+            </ul>
+            {% endif %}
+            </div>
+            </div>
+        </div>
+        {% endif %}
+            {% if (comment.comments | length != 0) and comment.approved %}
+                {{ comment_thread(comment) }}
+            {% endif %}
+    {% endfor %}
+    </div>
+{% endmacro %}
+
+{% set pub_text = _('Publicado') %}
+{% set unpub_text = _('Despublicado') %}
+{% set lb_pub_text = _('Publicar') %}
+{% set lb_unpub_text = _('Despublicar') %}
+<script type="text/javascript">
+ let lan_arr = {
+    t_pub: '{{pub_text}}',
+    t_unpub: '{{unpub_text}}',
+    l_pub: '{{lb_pub_text}}',
+    l_unput: '{{lb_unpub_text}}',
+    msg: '{{ _('El comentario ha sido %s correctamente')}}'
+ };
+</script>
+{% macro managed_thread(thread) %}
+	{% for comment in thread.comments %}
+		  <tr>
+			<td class="dataset-label">{{ comment.subject }}</td>
+			<td class="dataset-details">{{ comment.email }}</td>
+			<td class="dataset-details">{{ comment.content|safe }}</td>
+			<td class="dataset-details">
+			  <div style="float:left;" id="t_{{ comment.id }}">{% if comment.approved == False %}{{ unpub_text }}{% else %}{{ pub_text }}{% endif %}</div>
+			  <div class="material-switch pull-right">
+                            <input id="{{ comment.id }}" name="approval_status" type="checkbox" {% if comment.approved == True %}checked{% endif %} onclick="javascript:publish(this,'{% if h.check_access('package_update', {'id': pkg_id }) %}{{ pkg_id }}{% endif %}','{{ comment.id }}',lan_arr);"/>
+                            <label id="l_{{ comment.id }}" for="{{ comment.id }}" class="label-primary" title="{% if comment.approved %}{{ lb_unpub_text }}{% else %}{{ lb_pub_text }}{% endif %}"></label>
+			  </div>
+			</td>
+		  </tr>
+		    {% if comment.comments | length != 0 %}
+				{{ managed_thread(comment) }}
+		  {% endif %} 
+	{% endfor %}
+{% endmacro %}
+
+  {% block header_account_logged %} {% if userobj %}
+     {% if userobj.sysadmin and thread.comments | length != 0 %}
+<section class="additional-info">
+  <div id="publishComment" class="alert alert-success alert-dismissible ceh-none" role="alert">
+    <strong>{{_('Muy Bien')}}!</strong> <div style="display:inline;"></div>
+      <button type="button" class="close ceh-close-cmalert" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <h3>{{ _('Administrar Comentarios') }}</h3>
+  <table class="table table-striped-ceh table-hover-ceh table-bordered table-condensed">
+	<thead>
+      <tr>
+        <th scope="col" class="ceh-tr-col1">{{ _('Nombre') }}</th>
+        <th scope="col" class="ceh-tr-col1">{{ _('Correo') }}</th>
+        <th scope="col">{{ _('Comentario') }}</th>
+        <th scope="col" class="ceh-tr-col2">{{ _('Acción') }}</th>
+      </tr>
+	</thead>
+	<tbody>
+		{{ managed_thread(thread) }}
+	</tbody>
+  </table>
+</section>
+     {% endif %}
+  {% endif %} {% endblock %}
+
+
+<section class="additional-info">
+  <h3>{{ _('Nuevo Comentario') }}</h3> 
+  <div class="module-content ceh-comments">
+    <form action="{{ pkg_id }}/comments/add" method="POST" class="form-horizontal" id="cehCommentForm" role="form"> 
+      <div class="form-group form-group_ech">
+        <label for="subject" class="col-sm-2 control-label">{{ _('Nombre') }}</label>
+        <div class="col-sm-10 ech-col">
+          <input type="text" class="form-control form-control_ech" name="subject" id="subject" maxlength="50" required>
+        </div>
+      </div>
+      <div class="form-group form-group_ech">
+        <label for="email" class="col-sm-2 control-label">{{ _('Correo Electrónico') }}</label>
+        <div class="col-sm-10 ech-col">
+          <input type="text" class="form-control form-control_ech" name="email" id="email" maxlength="30" required>
+        </div>
+      </div>
+      <div class="form-group form-group_ech">
+        <label for="comment" class="col-sm-2 control-label">{{ _('Comentario') }}</label>
+        <div class="col-sm-10">
+          <span class="form-control_label_ech1">
+            <i class="fa fa-question-circle"></i>
+            <a class="ceh-tips" href="#" data-toggle="modal" data-target="#tipsModal">{{ _('formatos y textos') }}</a>
+          </span>
+          <textarea class="form-control form-control_label_ech1 form-ceh-comment" name="comment" id="comment" rows="5" maxlength="500" required></textarea>
+          <span class="countdown"></span>
+        </div>
+      </div>
+      <div class="form-group form-group_ech">
+        <div class="col-sm-offset-2 col-sm-10 ech-col">
+          <input type="checkbox" class="form-checkbox-input" name="cehpolicy" id="cehpolicy">
+          <span class="form-checkbox-label form-control_label_ech1" for="cehpolicy">{{ _('He leído y acepto los') }} <a href="#" data-toggle="modal" data-target="#termsModal">{{ _('Términos y Condiciones') }}</a></span>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="col-sm-offset-2 col-sm-10">
+          <button class="btn btn-success btn-circle text-uppercase" type="submit" id="submitComment"><span class="fa fa-paper-plane"></span> {{ _('Agregar Comentario') }}</button>
+        </div>
+      </div>
+    </form>
+  </div>
+  <hr style="margin-top:20px; border: 2px solid #004BA7; background-color:#004BA7;">
+<h3 id="comments">{{ _('Comentarios') }}</h3>
+<div class="comment-container">
+    {{ comment_thread(thread) }}
+    {% if thread.comments | length == 0 or approved.exist == False %}
+    {{ _('Aún no existen comentarios.') }}
+	{% endif %}
+</div>
+<!-- Modal Terms and Conditions -->
+<div class="modal fade" id="termsModal" tabindex="-1" role="dialog" aria-labelledby="termsConditionLabel" aria-hidden="true" style="display: none;">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="termsConditionLabel">Términos y Condiciones</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">×</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <h5>RESPONSABLE</h5>
+          <p>Cabildo de El Hierro</p>
+          <hr>
+<h5>FINALIDAD PRINCIPAL</h5>
+          <p>Recogida de comentarios y sugerencias de los usuarios del Portal de Datos Abiertos de cada a desarrollar mejoras del servicio y obtener una experiencia de usuario mejorada.</p>
+          <hr>
+<h5>LEGITIMACIÓN</h5>
+          <p>Mediante consentimiento del Interesado</p>
+          <hr>
+<h5>DESTINATARIOS</h5>
+          <p>No se cederán datos a terceros, salvo autorización expresa u obligación legal</p>
+          <hr>
+<h5>DERECHOS</h5>
+          <p>Acceder, rectificar y suprimir los datos, portabilidad de los datos, limitación u oposición a su tratamiento, transparencia y derecho a no ser objeto de decisiones automatizadas.</p>
+          <hr>
+<h5>INFORMACIÓN ADICIONAL</h5>
+          <p>Puede consultar la información adicional y detallada sobre nuestra Política de Privacidad.</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" data-dismiss="modal">Cerrar</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Modal Tips -->
+<div class="modal fade" id="tipsModal" tabindex="-1" role="dialog" aria-labelledby="tipsLabel" aria-hidden="true" style="display: none;">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="tipsLabel">Algunos consejos</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">×</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <ul>
+            <li>No se permiten etiquetas HTML.</li>
+            <li>Las líneas y los párrafos se reconocen automáticamente. Las etiquetas de salto de línea &lt;br /&gt;, &lt;p&gt; párrafo y &lt;/p&gt; cerrar párrafo se insertan automáticamente. Si no se reconocen los párrafos, simplemente agregue un par de líneas en blanco.</li>
+            <li>Las direcciones de las páginas web y las direcciones de correo electrónico se convierten en enlaces automáticamente.</li>
+            </ul>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" data-dismiss="modal">Cerrar</button>
+      </div>
+    </div>
+  </div>
+</div>
+</section>

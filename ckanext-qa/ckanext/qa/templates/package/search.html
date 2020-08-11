@@ -1,0 +1,76 @@
+{% ckan_extends %}
+{% block secondary_content %}
+  {{ super() }}
+   {% block facet_list_heading  %}
+       <section class="module module-narrow module-shallow">
+      <h2 class="module-heading">
+        <i class="fa fa-eye"></i>
+        {% set title = _('Openness') %}
+        {{ title }}
+        <a href="/dataset" class="action clear_action">{{ _('Clear') }} </a>
+      </h2>
+	  {# {% snippet "qa/stars.html", stars=0 %} #}
+      {% block facet_list_items %}
+	  {% set stars = 5 %}
+	  {% set title = 'Has Resources (data)' %}
+	  {% set ope_title = _("{0}:{1}").format(_('Openness'), stars) %}
+	  {%- if stars != None -%}
+		<nav>
+            <ul class="{{ nav_class or 'list-unstyled nav nav-simple nav-facet' }}">
+          {% set href = h.remove_url_param('openness',
+                                           extras=extras,
+                                           alternative_url=alternative_url) 
+                        if c.fields_grouped['openness'] 
+                        else h.add_url_param(new_params={'openness': '%s' % stars },
+                                            alternative_url=alternative_url) %}
+			<li class="{{ nav_item_class or 'nav-item' }} {% if stars > 0 %}active{% endif %}">
+				<!--<a href="{{ href }}" title="{{ ope_title }}">-->
+		<div class="ceh-filter">
+		{%- else -%}
+        <section class="module-content">
+		{%- endif -%}
+		<span class="star-rating{% if stars == 0 %} no-stars{% endif %}">
+		  {%- if stars != None -%}
+			<span class="star-rating-stars">
+			  {%- for index in range(stars) -%}
+                 <a href="/dataset?q=openness:{{index+1}}"><span class="fa fa-star ceh-f-star ceh-cursor"></span></a>
+              {%- endfor -%}
+              {%- for index in range(5-stars) -%}
+                 <a href="/dataset?q=openness:{{index+1}}"><span class="fa fa-star-o ceh-h-star ceh-cursor"></span></a>
+              {%- endfor -%}
+              {# 0 stars looks awfully like 5 stars, so be explicit #}
+             {# {{ _("{0} de {1}").format(stars, 5) }} #}
+			</span>
+		  {%- endif -%}
+		</span>
+		{%- if stars != None -%}
+		</div><!--</a>-->
+			</li>
+            </ul>
+		</nav>
+		{%- else -%}
+		</section>
+		{%- endif -%}
+		<p class="module-footer"></p>
+	  {% endblock %}
+    {#{% block package_openness_items %}
+      {% set title = 'Has Resources (data)' %}
+      <nav>
+        <ul class="{{ nav_class or 'list-unstyled nav nav-simple nav-facet' }}">
+          {% set href = h.remove_url_param('num_resources',
+                                           extras=extras,
+                                           alternative_url=alternative_url) 
+                        if c.fields_grouped['num_resources'] 
+                        else h.add_url_param(new_params={'num_resources': '[1 TO *]' },
+                                            alternative_url=alternative_url) %}
+          <li class="{{ nav_item_class or 'nav-item' }}{% if c.fields_grouped['num_resources'] %} active{% endif %}">
+            <a href="{{ href }}" title="{{ title }}">
+              <span>{{ title }}</span>
+            </a>
+          </li>
+        </ul>
+      </nav>
+    {% endblock %} #}
+       </section>
+   {% endblock %}
+{% endblock %}

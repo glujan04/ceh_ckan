@@ -1,0 +1,126 @@
+<section class="additional-info">
+  <div id="alertComment" class="alert alert-success alert-dismissible ceh-none" role="alert">
+    <strong>Muy Bien!</strong> Su comentario ha sido puesto en cola para su revisión por los administradores del sitio y se publicará después de su aprobación.
+      <button type="button" class="close ceh-close-calert" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <h3>Agregar Comentario</h3> 
+  <div class="module-content ceh-comments">
+    <form action="" method="post" class="form-horizontal" id="cehCommentForm" name="cehCommentForm" role="form"> 
+      <div class="form-group form-group_ech">
+        <label for="cehname" class="col-sm-2 control-label">Nombre</label>
+        <div class="col-sm-10 ech-col">
+          <input type="text" class="form-control form-control_ech" name="cehname" id="cehname" maxlength="50" required>
+        </div>
+      </div>
+      <div class="form-group form-group_ech">
+        <label for="cehemail" class="col-sm-2 control-label">Correo</label>
+        <div class="col-sm-10 ech-col">
+          <input type="text" class="form-control form-control_ech" name="cehemail" id="cehemail" maxlength="30" required>
+        </div>
+      </div>
+      <div class="form-group form-group_ech">
+        <label for="cehcomment" class="col-sm-2 control-label">Comentario</label>
+        <div class="col-sm-10">
+          <span class="form-control_label_ech1">
+            <i class="fa fa-question-circle"></i>
+            <a class="ceh-tips" href="#" data-toggle="modal" data-target="#tipsModal">formatos y textos</a>
+          </span>
+          <textarea class="form-control form-control_label_ech1" name="cehcomment" id="cehcomment" rows="5" style="margin: 0px; height: 105px; width: 657px;" maxlength="500" required>
+          </textarea>
+          <span class="countdown"></span>
+        </div>
+      </div>
+      <div class="form-group form-group_ech">
+        <div class="col-sm-offset-2 col-sm-10 ech-col">
+          <input type="checkbox" class="form-checkbox-input" name="cehpolicy" id="cehpolicy">
+          <span class="form-checkbox-label form-control_label_ech1" for="cehpolicy">He leído y acepto los <a href="#" data-toggle="modal" data-target="#termsModal">Términos y Condiciones</a></span>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="col-sm-offset-2 col-sm-10">
+          <button class="btn btn-success btn-circle text-uppercase" type="submit" id="submitComment"><span class="fa fa-paper-plane"></span> Agregar Comentario</button>
+        </div>
+      </div>
+    </form>
+
+  <div id="ceh_thread"></div>
+
+  <script type="text/javascript">
+    var ceh_shortname =  '{{ ceh_shortname }}';
+    var ceh_identifier = '{{ identifier }}';
+    {%- set ceh_url = h.current_ceh_url() %}
+    {%- if ceh_url %}
+    var ceh_url = '{{ ceh_url }}';
+    {% endif %}
+	console.log('ceh_shortname',ceh_shortname);
+	console.log('ceh_identifier',ceh_identifier);
+	console.log('ceh_url',ceh_url);
+      /* * * DON'T EDIT BELOW THIS LINE * * */
+      /*(function() {
+          var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+          dsq.src = 'https://' + ceh_shortname + '.disqus.com/embed.js';
+          (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+      })();*/
+  </script>
+  </div>
+<!-- Modal Terms and Conditions -->
+<div class="modal fade" id="termsModal" tabindex="-1" role="dialog" aria-labelledby="termsConditionLabel" aria-hidden="true" style="display: none;">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="termsConditionLabel">Términos y Condiciones</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">×</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <h5>RESPONSABLE</h5>
+          <p>Cabildo de El Hierro</p>
+          <hr>
+<h5>FINALIDAD PRINCIPAL</h5>
+          <p>Recogida de comentarios y sugerencias de los usuarios del Portal de Datos Abiertos de cada a desarrollar mejoras del servicio y obtener una experiencia de usuario mejorada.</p>
+          <hr>
+<h5>LEGITIMACIÓN</h5>
+          <p>Mediante consentimiento del Interesado</p>
+          <hr>
+<h5>DESTINATARIOS</h5>
+          <p>No se cederán datos a terceros, salvo autorización expresa u obligación legal</p>
+          <hr>
+<h5>DERECHOS</h5>
+          <p>Acceder, rectificar y suprimir los datos, portabilidad de los datos, limitación u oposición a su tratamiento, transparencia y derecho a no ser objeto de decisiones automatizadas.</p>
+          <hr>
+<h5>INFORMACIÓN ADICIONAL</h5>
+          <p>Puede consultar la información adicional y detallada sobre nuestra Política de Privacidad.</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" data-dismiss="modal">Cerrar</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Modal Tips -->
+<div class="modal fade" id="tipsModal" tabindex="-1" role="dialog" aria-labelledby="tipsLabel" aria-hidden="true" style="display: none;">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="tipsLabel">Algunos consejos</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">×</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <ul>
+            <li>No se permiten etiquetas HTML.</li>
+            <li>Las líneas y los párrafos se reconocen automáticamente. Las etiquetas de salto de línea &lt;br /&gt;, &lt;p&gt; párrafo y &lt;/p&gt; cerrar párrafo se insertan automáticamente. Si no se reconocen los párrafos, simplemente agregue un par de líneas en blanco.</li>
+            <li>Las direcciones de las páginas web y las direcciones de correo electrónico se convierten en enlaces automáticamente.</li>
+            </ul>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" data-dismiss="modal">Cerrar</button>
+      </div>
+    </div>
+  </div>
+</div>
+</section>

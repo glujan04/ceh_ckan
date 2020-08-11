@@ -1,0 +1,221 @@
+textarea[name=comment] {
+    resize: none;
+}
+
+/* COMENTARIOS */
+.ceh-comments {
+    /*border: 1px solid red;*/
+}
+
+.btn-circle {
+    /*width: 30px;*/
+    height: 30px;
+    font-weight: bold;
+    padding: 6px 15px !important;
+    border-radius: 20px !important;
+    text-align: center;
+    font-size: 12px !important;
+    line-height: 1.42857;
+}
+
+.countdown {
+    font-size: 12px;
+    float: right;
+    margin-top: 2px;
+    margin-bottom: 4px;
+}
+
+.ceh-error {
+    font-size: 13px;
+    color: red;
+    display: block;
+}
+
+.form-group_ech {
+    margin-bottom: 0px;
+}
+
+.form-control_label_ech1 {
+    font-size: 13px !important;
+}
+
+.form-ceh-comment {
+	margin: 0px;
+	height: 105px;
+	width: 657px;
+}
+
+.form-control_ech {
+    height: 35px !important;
+    font-size: 13px !important;
+}
+
+.ech-col {
+    height: 45px;
+}
+
+.ceh-tips::before {
+    content: " "
+}
+
+.ceh-none {
+	display: none;
+}
+
+/* GESTION COMENTARIOS */
+
+.table-striped-ceh > tbody > tr:nth-of-type(odd) {
+  background-color: #ebf2fa;
+}
+.table-hover-ceh > tbody > tr:hover {
+  background-color: #8cb3d9;
+}
+
+.btn-secondary-ceh {
+	color: #fff;
+    background-color: #6c757d;
+    border-color: #6c757d;
+}
+
+.ceh-tr-col1 {
+	width: 150px !important;
+}
+
+.ceh-tr-col2 {
+    width: 140px !important;
+}
+
+.ceh-tr-col3 {
+    width: 80px !important;
+}
+
+.table-hover-ceh > tbody, button.btn {
+	font-size: 13px;
+}
+
+/* FORO DE COMENTARIOS */
+
+.ceh-form-reply{
+	border-top-style: dashed;
+	border-top-width: 1px;
+	margin-top: 10px;
+}
+
+.ceh-post-main {
+	/* text-indent: 0; */
+    /* visibility: visible; */
+    /* font-size: 1.2em; */
+    /* line-height: 1.2; */
+    /* font-weight: bold; */
+    /* position: static; */
+    background: #f1f1f1;
+    font-weight: bold;
+    padding: 6px;
+    border-style: none none dashed none;
+    border-width: 1px;
+    /* border-color: #dde4eb; */
+}
+
+.ceh-post-body {
+	font-size: 14px;
+	font: 75%/1.5em Verdana, Helvetica, Arial, sans-serif;
+	background: #fafafa;
+	margin: 0px 0 10px;
+	border-style: solid;
+	border-width: 1px;
+	border-color: #dde4eb;
+}
+
+.ceh-post-reply {
+	margin-left: 25px;
+}
+
+.ceh-post-head {
+	padding:10px 0 0 6px;
+	font-size: 12px;
+}
+
+.ceh-post-content {
+	padding: 10px 6px 10px 0;
+}
+
+.ceh-post-content1{
+	padding-bottom:15px;
+}
+
+.ceh-post-left {
+	float: right;
+}
+
+.ceh-pointer{
+	cursor: pointer;
+}
+
+/* BOTON SWITCH */
+.material-switch > input[type="checkbox"] {
+    display: none;   
+}
+
+.material-switch > label {
+    cursor: pointer;
+    height: 0px;
+    position: relative; 
+    width: 40px;  
+}
+
+.material-switch > label::before {
+    background: rgb(0, 0, 0);
+    box-shadow: inset 0px 0px 10px rgba(0, 0, 0, 0.5);
+    border-radius: 8px;
+    content: '';
+    height: 16px;
+    margin-top: -8px;
+    position:absolute;
+    opacity: 0.3;
+    transition: all 0.4s ease-in-out;
+    width: 40px;
+}
+.material-switch > label::after {
+    background: rgb(255, 255, 255);
+    border-radius: 16px;
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.3);
+    content: '';
+    height: 24px;
+    left: -4px;
+    margin-top: -8px;
+    position: absolute;
+    top: -4px;
+    transition: all 0.3s ease-in-out;
+    width: 24px;
+}
+.material-switch > input[type="checkbox"]:checked + label::before {
+    background: inherit;
+    opacity: 0.5;
+}
+.material-switch > input[type="checkbox"]:checked + label::after {
+    background: inherit;
+    left: 20px;
+}
+
+.material-switch > input[type="checkbox"]:disabled + label {
+    background-color: rgb(232,235,238);
+    border-color: rgb(255,255,255);
+    cursor: default;
+    pointer-events: none;
+}
+
+/* LISTADO DE THREADS */
+.dataset-ceh-icons
+{
+	text-align:center;
+	font-size: 15px;
+}
+
+.dataset-ceh-icons
+{
+	text-align:center;
+	font-size: 15px;
+}
+
+
+

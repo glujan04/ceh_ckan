@@ -1,0 +1,6 @@
+
+        [ckan.plugins]
+            ceh_comment = ckanext.ceh_comment.plugin:CommentPlugin
+        [paste.paster_command]
+            cehcomment = ckanext.ceh_comment.commands.command:CehComment
+    

@@ -1,0 +1,74 @@
+{% extends "page.html" %}
+
+{% block subtitle %}{{ _('Listado de Notificaciones') }}{% endblock %}
+
+{% block breadcrumb_content %}
+  <li class="active">{{ h.nav_link(_('Notificaciones de comentarios'), named_route='list') }}</li>
+{% endblock %}
+
+{% block primary_content %}
+  <article class="module">
+    <div class="module-content">
+      <h1 class="page-heading">
+        {% block page_heading %}{{ _('Notificaciones de Comentarios') }}{% endblock %}
+      </h1> 
+	  {% set threads = h.get_comment_all_dataset(c.userobj.id) %}
+      <section class="additional-info">{# {{ c.userobj.id }} #}
+	  <ul>
+	  </ul> {#{{ threads }}#}
+  <table class="table table-striped-ceh table-hover-ceh table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th scope="col">{{ _('Dataset') }}</th>
+        <th scope="col" class="ceh-tr-col1">{{ _('Estado') }}</th>
+        <th scope="col" class="ceh-tr-col3">{{ _('Acción') }}</th>
+      </tr>
+    </thead>
+    <tbody>
+	{% for dataset in threads %}
+		  <tr style="{% if dataset.active_thread == 'active' %}font-weight: bold{% endif %}">
+			<td class="dataset-label">{{ dataset.name }}</td>
+			<td class="dataset-details">{% if dataset.active_thread == 'active' %} {{ _('No leído') }} {% else %} {{ _('Leído') }} {% endif %}</td>
+			<td class="dataset-ceh-icons">
+				<a href="/dataset/list/{{ dataset.name }}/thread/{{ dataset.id }}/read" title="{{ _('Ver el Conjunto de datos') }}"><i class="fa fa-share" aria-hidden="true"></i></a>
+				<a href="#delModal" data-toggle="modal" data-thread-id="{{ dataset.id }}" data-dataset-name="{{ dataset.name }}" title="{{ _('Eliminar notificación') }}"><i class="fa fa-trash" aria-hidden="true"></i></a>
+			</td>
+		  </tr>
+	{% endfor %}
+    </tbody>
+  </table>
+  <!-- Modal -->
+<div class="modal fade" id="delModal" tabindex="-1" role="dialog" aria-labelledby="delModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="delModalLabel">{{ _('Confirmación') }}</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        {{ _('¿Está seguro(a) que desea eliminar el registro?')}}
+        <input type="hidden" name="tid" id="tid">
+        <input type="hidden" name="dname" id="dname">
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">{{ _('Salir') }}</button>
+        <button type="button" class="btn btn-primary" onclick="delNotify();">{{ _('Eliminar') }}</button>
+      </div>
+    </div>
+  </div>
+</div>
+      </section>
+    </div>
+  </article>
+{% endblock %}
+{%- block scripts %}
+  {{ super() }}
+  {% resource 'ckanext_comment/ceh2.js' %}
+
+{% endblock -%}
+{% block secondary_content %}
+  {{ super() }}
+  {% snippet 'snippets/ceh_notify_main.html', q=q %}
+{% endblock %}

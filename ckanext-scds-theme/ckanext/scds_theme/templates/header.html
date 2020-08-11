@@ -1,0 +1,64 @@
+{% block header_wrapper %} {% block header_account %}
+<header class="account-masthead">
+  <div class="container">
+    <ul class="top_nav pull-right">
+     {% block header_account_logged %} {% if c.userobj %}
+      <li><a href="{{ h.url_for('/harvest') }}">Harvester</a></li>
+      <li><a href="{{ h.url_for('dashboard.index') }}">{{_('Dashboard')}}</a></li>
+      <li><a href="{{ h.url_for(controller='admin', action='index') }}">{{_('Admin panel')}}</a></li>
+      <li><a href="{{ h.url_for('/user/_logout') }}">{{_('Log out')}}</a></li>
+     {% else %}
+       <li><a href="{{ h.url_for('/user/login/sso') }}">{{_('Log in')}}</a></li>
+     {% endif %} {% endblock %}
+    </ul>
+  </div>
+</header>
+{% endblock %}
+
+
+<header class="scds_header">
+      <nav class="navbar">
+        <div class="container">
+          <!-- 
+Brand and toggle get grouped for better mobile display -->
+          <div class="navbar-header">
+            <button
+              type="button"
+              class="navbar-toggle collapsed"
+              data-toggle="collapse"
+              data-target="#bs-nav-navbar-collapse-1"
+              aria-expanded="false"
+            >
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+
+          </div>
+
+          <!-- Collect the nav links, forms, and other content for toggling -->
+          <div class="collapse navbar-collapse" id="bs-nav-navbar-collapse-1">
+           <table width="100%">
+              <tr>
+                 <td width="300px"><a href="/"><img alt="El Hierro en Red" src="/logo.png" width="252px" height="63px"></a>
+                 </td>
+                 <td>     <ul class="nav navbar-nav navbar-right scds_nav">
+                          <li><a href="https://catalogoelhierro.idomdev.es/">{{ _('Description of the initiative') }}</a></li>
+                          <li><a href="https://catalogoelhierro.idomdev.es/dataset">{{ _('Datasets') }}</a></li>
+                          <li><a href="https://catalogoelhierro.idomdev.es/sparql">SPARQL</a></li>
+                          <li><a href="https://opendataelhierro.idomdev.es/api">API</a></li>
+                          <li><a href="https://catalogoelhierro.idomdev.es/stats">{{ _('Statistics') }}</a></li>
+                        </ul>
+                  </td>
+               </tr>
+            </table>
+          </div>
+          <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container-fluid -->
+      </nav>
+    </header>
+
+
+{% endblock %}

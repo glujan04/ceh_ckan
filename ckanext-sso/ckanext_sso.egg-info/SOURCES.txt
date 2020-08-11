@@ -1,0 +1,13 @@
+README.md
+setup.py
+ckanext/__init__.py
+ckanext/sso/__init__.py
+ckanext/sso/controller.py
+ckanext/sso/plugin.py
+ckanext_sso.egg-info/PKG-INFO
+ckanext_sso.egg-info/SOURCES.txt
+ckanext_sso.egg-info/dependency_links.txt
+ckanext_sso.egg-info/entry_points.txt
+ckanext_sso.egg-info/namespace_packages.txt
+ckanext_sso.egg-info/not-zip-safe
+ckanext_sso.egg-info/top_level.txt

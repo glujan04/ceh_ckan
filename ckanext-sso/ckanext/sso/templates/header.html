@@ -1,0 +1,8 @@
+{% ckan_extends %}
+
+{% block header_account_notlogged %}
+<li>
+  {#{% link_for _('Log in'), named_route='user/login/sso' %}#}
+  <a href="{{ h.url_for('/user/login/sso') }}" title="{{ _('Log in') }}"> {{ _('Log in') }} </a>
+</li>
+{% endblock %}

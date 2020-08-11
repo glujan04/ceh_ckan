@@ -1,0 +1,27 @@
+{% ckan_extends %}
+
+{% block styles %}
+  {{ super() }}
+  {% resource 'scds_theme/bootstrap.css' %}
+  {% resource 'scds_theme/style.css' %}
+  {% resource 'scds_theme/layout.css' %}
+{% endblock %}
+
+{%- block scripts %}
+  <script src="https://intranetelhierro.idomdev.es/auth/token-delivery-core.js"></script>
+  <script src="https://intranetelhierro.idomdev.es/auth/token-delivery-ckan.js"></script>
+{% endblock -%}
+
+{% block head_extras %}
+  {{ super() }}
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-157826753-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-157826753-1');
+</script>
+{% resource 'scds_theme/custom.js' %}
+{% endblock %}

@@ -1,0 +1,10 @@
+{% ckan_extends %}
+{% block header_account_logged %}
+
+{% resource 'ckanext_comment/ceh.css' %}
+
+  {% block ceh_notify %}
+    {{ h.ceh_notify() }}
+  {% endblock %}
+  {{ super() }}
+{% endblock %}
